@@ -40,14 +40,14 @@ class LastRequest {
     $this->request = $request;
     $this->response = $response;
 
-    $this->total = $response->getHeader('Total');
-    $this->ratelimit_limit = $response->getHeader('X-Ratelimit-Limit');
-    $this->ratelimit_remaining = $response->getHeader('X-Ratelimit-Remaining');
+    $this->total = $response->getHeaders()['Total'];
+    $this->ratelimit_limit = $response->getHeaders()['X-Ratelimit-Limit'];
+    $this->ratelimit_remaining = $response->getHeaders()['X-Ratelimit-Remaining'];
     $this->links = $this->getLinks($response);
   }
 
   private function getLinks($response) {
-    $link_header = $response->getHeader('Link');
+    $link_header = $response->getHeaders()['Link'];
     if ($link_header == null) {
       return [];
     }
